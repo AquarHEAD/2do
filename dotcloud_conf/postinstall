@@ -1,0 +1,4 @@
+#!/bin/sh
+python yakusoku/manage.py syncdb --noinput
+mkdir -p /home/dotcloud/data/static
+python yakusoku/manage.py collectstatic --noinput 

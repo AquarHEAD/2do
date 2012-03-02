@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign up | 2do</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">2do</a>
+          <ul class="nav">
+            <li><a href="/m/login">Home</a></li>
+            <li><a href="#">Statistics</a></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li><a href="/m/login">Log in</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+      <div class="row">
+        <div class="span12">
+        <form class="form-horizontal" action="/m/signup" method="post">
+        {% csrf_token %}
+          <fieldset>
+            <legend>Pair Settings</legend>
+            <div class="control-group">
+              <label class="control-label" for="pairtitle">Title</label>
+              <div class="controls">
+                <input  type="text" class="input-large" id="pairtitle" name="pairtitle">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="pairurl" id="">Slug</label>
+              <div class="controls">
+                  <div class="input-prepend">
+                    <span class="add-on">http://2do.aquarhead.com/</span>
+                    <input class="span2" id="pairurl" size="16" type="text" name="slug">
+                  </div>
+                  <p class="help-block">The url for you two.</p>
+              </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="public">Public?</label>
+                <div class="controls">
+                  <label class="checkbox">
+                    <input type="checkbox" id="public" name="public">
+                    Should your 2do page be public?
+                  </label>
+                </div>
+            </div>
+          </fieldset>
+        
+          <fieldset>
+            <legend>Member Settings</legend>
+            <div class="control-group">
+              <label class="control-label" for="nickleft">Left Nickname</label>
+              <div class="controls">
+                <input  type="text" class="input-large" id="nickleft" name="left">
+              </div>
+            </div>
+        
+            <div class="control-group">
+              <label class="control-label" for="nickright">Right Nickname</label>
+              <div class="controls">
+                <input  type="text" class="input-large" id="nickright" name="right">
+              </div>
+            </div>
+          </fieldset>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+            <button class="btn">Cancel</button>
+          </div>
+        </form>
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+  </body>
+</html>

@@ -50,6 +50,15 @@
         <div class="span8 offset2">
           <form class="form-inline" action="/t/add" method="post">
             {% csrf_token %}
+            <select name="date" class="input-small">
+              {% if t %}
+              <option value="2">Tomorrow</option>
+              <option value="1">Today</option>
+              {% else %}
+              <option value="1">Today</option>
+              <option value="2">Tomorrow</option>
+              {% endif %}
+            </select>
             <input type="text" class="input-xlarge" placeholder="add todo here..." name="note">
             <button type="submit" class="btn">Add</button>
           </form>

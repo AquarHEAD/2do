@@ -1,7 +1,7 @@
 # coding=utf-8
 
 # Python
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 # Plugins
 from annoying.decorators import render_to
@@ -24,7 +24,9 @@ def handler(request, slug = ''):
     # l m == m1
     # r m == m2
     # h cp == mp
+    # t tomorrow?
     
+    t = request.session.get('tomorrow', default = None)
     mid = request.session.get('mid', default = None)
     if mid is not None:
         m = Member.objects.get(pk = mid)
@@ -87,7 +89,7 @@ def handler(request, slug = ''):
             r = True
     
     if (cp.public or ((not cp.public) and (cp == mp))):
-        return {'cp' : cp, 'mp' : mp, 'm' : m, 'm1' : m1, 'm2' : m2, 'h' : h, 'l' : l, 'r' : r}
+        return {'cp':cp, 'mp':mp, 'm':m, 'm1':m1, 'm2':m2, 'h':h, 'l':l, 'r':r, 't':t}
     else:
         return redirect('/m/login')
     
@@ -95,7 +97,13 @@ def add(request):
     mid = request.session.get('mid', default = None)
     if mid is not None:
         m = Member.objects.get(pk = mid)
-        Todo.objects.create(note = request.POST['note'], owner = m)
+        t = Todo.objects.create(note = request.POST['note'], owner = m)
+        if (request.POST['date'] == '2'):
+            t.created = t.created + timedelta(days = 1)
+            t.save()
+            request.session['tomorrow'] = True
+        else:
+            request.session['tomorrow'] = False
         return redirect('/' + m.pair.slug)
     else:
         return redirect('/m/login')
